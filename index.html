@@ -3,6 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
 <title>Inercia · Consultoría de negocio y contenido · Puebla</title>
 <meta name="description" content="Tomamos negocios con mucho esfuerzo y poca dirección, y los ponemos a andar en línea recta. Consultoría de negocio + contenido. Puebla, México.">
 <meta property="og:title" content="Inercia · del garabato a la línea">
@@ -27,7 +30,7 @@ body{font-family:var(--body);background:var(--papel);color:var(--tinta);line-hei
 .wrap{max-width:1040px;margin:0 auto;padding:0 26px;position:relative}
 
 /* ══ NAV ══ */
-nav{position:sticky;top:0;z-index:90;background:rgba(28,20,14,.97);backdrop-filter:blur(12px);border-bottom:2px solid var(--naranja)}
+nav{position:sticky;top:0;z-index:90;background:rgba(28,20,14,.97);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-bottom:2px solid var(--naranja)}
 .nav-fila{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:11px 26px;max-width:1040px;margin:0 auto}
 .nav-links{display:flex;gap:4px;flex:1;justify-content:center}
 .nav-links a{font-family:var(--mono);font-size:9.5px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;white-space:nowrap;
@@ -150,7 +153,7 @@ h2.gran em{font-style:normal;color:var(--rojo)}
 .expo figure{transition:transform .22s ease,box-shadow .22s ease}
 .expo a:hover figure{transform:translate(-3px,-3px);box-shadow:8px 8px 0 rgba(255,67,40,.32);border-color:var(--rojo)}
 .expo .ver{position:absolute;top:9px;right:9px;z-index:3;display:flex;align-items:center;gap:5px;
-  background:rgba(12,9,6,.82);backdrop-filter:blur(4px);color:var(--brillo);border-radius:99px;padding:5px 10px 5px 7px;
+  background:rgba(12,9,6,.82);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);color:var(--brillo);border-radius:99px;padding:5px 10px 5px 7px;
   font-family:var(--mono);font-size:8px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
   opacity:0;transform:translateY(-5px);transition:.22s}
 .expo a:hover .ver,.expo a:focus .ver{opacity:1;transform:none}
@@ -576,6 +579,25 @@ body.js .rev.on{opacity:1;transform:none}
     if (visibles === 0) document.body.classList.remove('js');
   }, 4000);
 })();
+
+/* ── 1b. VIGILANTE ANTI-PANTALLA-BLANCA ── */
+setTimeout(function(){
+  try {
+    var alto = document.body.scrollHeight;
+    var texto = (document.body.innerText || '').trim().length;
+    if (alto < 800 || texto < 200) {
+      document.body.classList.remove('js');
+      var t = document.querySelectorAll('.rev');
+      for (var i = 0; i < t.length; i++){
+        t[i].classList.add('on');
+        t[i].style.opacity = '1';
+        t[i].style.transform = 'none';
+      }
+    }
+  } catch(e) {
+    document.body.classList.remove('js');
+  }
+}, 3000);
 
 /* ── 2. WHATSAPP ── */
 (function(){
