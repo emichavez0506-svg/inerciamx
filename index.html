@@ -292,6 +292,7 @@ footer b{color:var(--naranja)}
 @media(max-width:560px){.wa-flot{right:12px;bottom:12px;padding:13px 17px;font-size:10px}}
 
 /* reveals */
+body.js .hero .rev,body.js .hero-txt,body.js .hero-vid{opacity:1!important;transform:none!important}
 body.js .rev{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.8,.2,1)}
 body.js .rev.on{opacity:1;transform:none}
 @media(prefers-reduced-motion:reduce){body.js .rev{opacity:1;transform:none}}
@@ -535,71 +536,129 @@ body.js .rev.on{opacity:1;transform:none}
 </a>
 
 <script>
-/* ══ CONFIGURACIÓN ══ */
-var WHATSAPP = "522383940280";   /* número con lada, solo dígitos */
+/* ══════════════════════════════════════════════════════════
+   REGLA DE ORO: el contenido se muestra ANTES que cualquier
+   adorno. Si algo falla, la página se ve igual.
+   ══════════════════════════════════════════════════════════ */
 
-/* ── personalización por link:  ?para=Carlos  ── */
+/* ── 1. REVEALS · PRIMERO Y BLINDADO ── */
 (function(){
-  var q = new URLSearchParams(location.search);
-  var para = (q.get('para')||'').trim().slice(0,40);
-  var negocio = (q.get('negocio')||'').trim().slice(0,60);
-  var limpio = function(s){return s.replace(/[<>]/g,'')};
-  if(para){
-    var el = document.getElementById('saludo');
-    el.textContent = limpio(para) + ', esto es para ti' + (negocio ? ' y para ' + limpio(negocio) : '') + '.';
+  var elementos = document.querySelectorAll('.rev');
+  function mostrarTodo(){
+    for (var i = 0; i < elementos.length; i++) elementos[i].classList.add('on');
   }
-  /* mensaje precargado de WhatsApp */
-  var msg = para
-    ? 'Hola, soy ' + limpio(para) + '. Vi la página de Inercia y quiero agendar mi Sesión Inercia.'
-    : 'Hola, vi la página de Inercia y quiero agendar mi Sesión Inercia.';
-  var url = 'https://wa.me/' + WHATSAPP + '?text=' + encodeURIComponent(msg);
-  document.querySelectorAll('.wa-link').forEach(function(a){ a.href = url; });
+  try {
+    if (!('IntersectionObserver' in window)) { mostrarTodo(); return; }
+    var io = new IntersectionObserver(function(entradas){
+      for (var i = 0; i < entradas.length; i++){
+        if (entradas[i].isIntersecting){
+          entradas[i].target.classList.add('on');
+          io.unobserve(entradas[i].target);
+        }
+      }
+    }, {threshold: .14});
+    for (var i = 0; i < elementos.length; i++) io.observe(elementos[i]);
+  } catch(e) { mostrarTodo(); }
+
+  /* red de seguridad: pase lo que pase, a los 2.5s todo lo visible se muestra */
+  setTimeout(function(){
+    for (var i = 0; i < elementos.length; i++){
+      var el = elementos[i];
+      if (el.classList.contains('on')) continue;
+      var r = el.getBoundingClientRect();
+      if (r.top < window.innerHeight + 400) el.classList.add('on');
+    }
+  }, 2500);
+
+  /* último recurso: si algo dejó la página vacía, quitar el modo oculto */
+  setTimeout(function(){
+    var visibles = document.querySelectorAll('.rev.on').length;
+    if (visibles === 0) document.body.classList.remove('js');
+  }, 4000);
 })();
 
-/* ── la línea: se dibuja de izquierda a derecha con sus marcas ── */
+/* ── 2. WHATSAPP ── */
 (function(){
-  var svg=document.getElementById('lineaSagrada'); if(!svg)return;
-  var NS='http://www.w3.org/2000/svg';
-  var defs=document.createElementNS(NS,'defs');
-  defs.innerHTML='<linearGradient id="gl" gradientUnits="userSpaceOnUse" x1="10" y1="30" x2="990" y2="30"><stop offset="0" stop-color="#ff4328"/><stop offset="1" stop-color="#ffb15e"/></linearGradient>';
-  svg.appendChild(defs);
-  var ticks=document.createElementNS(NS,'g'); svg.appendChild(ticks);
-  for(var i=1;i<14;i++){
-    var tx=10+980*(i/14);
-    var l=document.createElementNS(NS,'line');
-    l.setAttribute('x1',tx); l.setAttribute('x2',tx);
-    l.setAttribute('y1',22); l.setAttribute('y2',38);
-    l.setAttribute('stroke','rgba(255,177,94,.5)'); l.setAttribute('stroke-width','2');
-    l.setAttribute('vector-effect','non-scaling-stroke');
-    l.style.opacity='0'; l.style.transition='opacity .5s ease '+(1.1+i*0.045)+'s';
-    ticks.appendChild(l);
-  }
-  var ln=document.createElementNS(NS,'line');
-  ln.setAttribute('x1','10'); ln.setAttribute('x2','990'); ln.setAttribute('y1','30'); ln.setAttribute('y2','30');
-  ln.setAttribute('stroke','url(#gl)'); ln.setAttribute('stroke-width','5');
-  ln.setAttribute('stroke-linecap','round'); ln.setAttribute('vector-effect','non-scaling-stroke');
-  ln.setAttribute('pathLength','1'); ln.setAttribute('stroke-dasharray','1');
-  ln.setAttribute('stroke-dashoffset','1');
-  ln.style.transition='stroke-dashoffset 1.5s cubic-bezier(.3,.8,.3,1) .25s';
-  svg.appendChild(ln);
-  requestAnimationFrame(function(){ setTimeout(function(){
-    ln.setAttribute('stroke-dashoffset','0');
-    ticks.childNodes.forEach(function(t){t.style.opacity='1'});
-  },250)});
+  try {
+    var WHATSAPP = "522383940280";
+    var para = '', negocio = '';
+    try {
+      var q = new URLSearchParams(location.search);
+      para = (q.get('para') || '').trim().slice(0, 40).replace(/[<>]/g, '');
+      negocio = (q.get('negocio') || '').trim().slice(0, 60).replace(/[<>]/g, '');
+    } catch(e) {}
+
+    if (para) {
+      var saludo = document.getElementById('saludo');
+      if (saludo) saludo.textContent = para + ', esto es para ti' + (negocio ? ' y para ' + negocio : '') + '.';
+    }
+    var msg = para
+      ? 'Hola, soy ' + para + '. Vi la página de Inercia y quiero agendar mi Sesión Inercia.'
+      : 'Hola, vi la página de Inercia y quiero agendar mi Sesión Inercia.';
+    var url = 'https://wa.me/' + WHATSAPP + '?text=' + encodeURIComponent(msg);
+    var enlaces = document.querySelectorAll('.wa-link');
+    for (var i = 0; i < enlaces.length; i++) enlaces[i].href = url;
+  } catch(e) {}
 })();
 
-/* ── reveals ── */
-var io=new IntersectionObserver(function(es){es.forEach(function(e){
-  if(e.isIntersecting){e.target.classList.add('on'); io.unobserve(e.target)}})},{threshold:.14});
-document.querySelectorAll('.rev').forEach(function(el){io.observe(el)});
-
-/* ── botón flotante aparece al pasar el hero ── */
+/* ── 3. LA LÍNEA (adorno · si falla no pasa nada) ── */
 (function(){
-  var flot=document.querySelector('.wa-flot');
-  var hero=document.querySelector('.hero');
-  new IntersectionObserver(function(e){
-    if(e[0].isIntersecting) flot.classList.remove('ver'); else flot.classList.add('ver');
-  },{threshold:.1}).observe(hero);
+  try {
+    var svg = document.getElementById('lineaSagrada');
+    if (!svg) return;
+    var NS = 'http://www.w3.org/2000/svg';
+    var defs = document.createElementNS(NS, 'defs');
+    defs.innerHTML = '<linearGradient id="gl" gradientUnits="userSpaceOnUse" x1="10" y1="30" x2="990" y2="30"><stop offset="0" stop-color="#ff4328"/><stop offset="1" stop-color="#ffb15e"/></linearGradient>';
+    svg.appendChild(defs);
+
+    var marcas = [];
+    var g = document.createElementNS(NS, 'g');
+    svg.appendChild(g);
+    for (var i = 1; i < 14; i++){
+      var tx = 10 + 980 * (i / 14);
+      var l = document.createElementNS(NS, 'line');
+      l.setAttribute('x1', tx); l.setAttribute('x2', tx);
+      l.setAttribute('y1', 22); l.setAttribute('y2', 38);
+      l.setAttribute('stroke', 'rgba(255,177,94,.5)');
+      l.setAttribute('stroke-width', '2');
+      l.setAttribute('vector-effect', 'non-scaling-stroke');
+      l.style.opacity = '0';
+      l.style.transition = 'opacity .5s ease ' + (1.1 + i * 0.045) + 's';
+      g.appendChild(l);
+      marcas.push(l);
+    }
+
+    var ln = document.createElementNS(NS, 'line');
+    ln.setAttribute('x1', '10'); ln.setAttribute('x2', '990');
+    ln.setAttribute('y1', '30'); ln.setAttribute('y2', '30');
+    ln.setAttribute('stroke', 'url(#gl)');
+    ln.setAttribute('stroke-width', '5');
+    ln.setAttribute('stroke-linecap', 'round');
+    ln.setAttribute('vector-effect', 'non-scaling-stroke');
+    ln.setAttribute('pathLength', '1');
+    ln.setAttribute('stroke-dasharray', '1');
+    ln.setAttribute('stroke-dashoffset', '1');
+    ln.style.transition = 'stroke-dashoffset 1.5s cubic-bezier(.3,.8,.3,1) .25s';
+    svg.appendChild(ln);
+
+    setTimeout(function(){
+      ln.setAttribute('stroke-dashoffset', '0');
+      for (var k = 0; k < marcas.length; k++) marcas[k].style.opacity = '1';
+    }, 250);
+  } catch(e) {}
+})();
+
+/* ── 4. BOTÓN FLOTANTE (adorno) ── */
+(function(){
+  try {
+    var flot = document.querySelector('.wa-flot');
+    var hero = document.querySelector('.hero');
+    if (!flot || !hero || !('IntersectionObserver' in window)) return;
+    new IntersectionObserver(function(e){
+      if (e[0].isIntersecting) flot.classList.remove('ver');
+      else flot.classList.add('ver');
+    }, {threshold: .1}).observe(hero);
+  } catch(e) {}
 })();
 </script>
 </body>
