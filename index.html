@@ -34,7 +34,11 @@ nav{position:sticky;top:0;z-index:90;background:rgba(28,20,14,.97);backdrop-filt
   color:rgba(242,239,228,.6);text-decoration:none;padding:7px 11px;border-radius:99px;border:1px solid transparent;transition:.15s}
 .nav-links a:hover{color:var(--brillo);border-color:rgba(232,132,44,.42)}
 @media(max-width:900px){.nav-links{display:none}}
-.nav-logo{display:flex;align-items:center;gap:9px;font-family:var(--disp);font-weight:900;font-size:16px;letter-spacing:-.5px;color:var(--papel)}
+.nav-logo{display:flex;align-items:center;gap:10px;font-family:var(--disp);font-weight:900;font-size:16px;letter-spacing:-.5px;
+  color:var(--papel);text-decoration:none;flex:none}
+.nav-logo img{height:30px;width:auto;display:block;filter:drop-shadow(0 0 7px rgba(255,90,40,.55))}
+.nav-logo span{white-space:nowrap}
+@media(max-width:520px){.nav-logo span{display:none}.nav-logo img{height:26px}}
 .nav-logo b{color:var(--rojo)}
 .nav-cta{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;white-space:nowrap;
   color:#fff;background:var(--rojo);text-decoration:none;padding:9px 17px;border-radius:4px;transition:.15s;border:2px solid var(--rojo)}
@@ -175,7 +179,11 @@ h2.gran em{font-style:normal;color:var(--rojo)}
 .persona img{width:100%;height:100%;object-fit:cover;display:block}
 .persona .et{font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--rojo);margin-top:15px}
 .persona h4{font-family:var(--disp);font-weight:800;font-size:21px;letter-spacing:-.02em;margin-top:3px}
-.persona p{font-size:14.5px;font-weight:300;color:var(--tinta-media);margin-top:8px}
+.persona p{font-size:14.5px;font-weight:300;color:var(--tinta-media);margin-top:9px}
+.persona .cred{font-family:var(--mono);font-size:9px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--ocre);margin-top:6px;line-height:1.7}
+.persona .cierre-bio{margin-top:13px;padding-top:12px;border-top:1.5px dashed var(--linea);font-size:14.5px}
+.persona .cierre-bio b{color:var(--tinta)}
 .persona p b{font-weight:600;color:var(--tinta)}
 
 /* ══ MÉTODO ══ */
@@ -266,7 +274,9 @@ h2.gran em{font-style:normal;color:var(--rojo)}
 .cierre h2 em{font-style:normal;color:var(--rojo)}
 .cierre p{font-size:16px;font-weight:300;color:rgba(242,239,228,.75);margin:20px auto 0;max-width:560px}
 .cierre .btn-fila{justify-content:center}
-.firma{font-family:var(--mono);font-size:9.5px;letter-spacing:.24em;text-transform:uppercase;color:rgba(242,239,228,.4);margin-top:38px}
+.logo-cierre{display:block;margin:44px auto 0;width:min(210px,52vw);height:auto;
+  filter:drop-shadow(0 0 16px rgba(255,90,40,.5)) drop-shadow(0 0 44px rgba(255,67,40,.24))}
+.firma{font-family:var(--mono);font-size:9.5px;letter-spacing:.24em;text-transform:uppercase;color:rgba(242,239,228,.4);margin-top:22px}
 footer{background:#120d09;color:rgba(242,239,228,.42);padding:24px 0;font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase}
 footer .wrap{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
 footer b{color:var(--naranja)}
@@ -291,7 +301,7 @@ body.js .rev.on{opacity:1;transform:none}
 <script>document.body.classList.add('js');</script>
 
 <nav><div class="nav-fila">
-  <div class="nav-logo">INERCIA<b>.</b></div>
+  <a class="nav-logo" href="#"><img src="assets/logo-garabato.png" alt="Inercia" width="34" height="30"><span>INERCIA<b>.</b></span></a>
   <div class="nav-links">
     <a href="#somos">Qué somos</a>
     <a href="#arreglamos">Qué arreglamos</a>
@@ -418,10 +428,13 @@ body.js .rev.on{opacity:1;transform:none}
   <p class="parr rev">Inercia junta lo que casi nunca viene junto: <b>el método y la calle.</b></p>
   <div class="duo">
     <div class="persona rev">
-      <figure><img src="assets/foto-emi.jpg" alt="Emi Chávez" loading="lazy"></figure>
+      <figure><img src="assets/foto-emi.jpg" alt="Emiliano Chávez" loading="lazy"></figure>
       <div class="et">Mitad uno · el método</div>
-      <h4>Emi Chávez</h4>
-      <p>Fundó y operó un negocio de infraestructura deportiva urbana con dinero propio: <b>fábrica, 8 diseños patentados, 7 parques instalados</b> y ventas en los tres terrenos donde un negocio puede vender — gobierno, empresas y consumidor final. Presentó su empresa en <b>Shark Tank México</b>. Maestría <b>MEDE en IPADE</b> con beca completa: la teoría después de vivirlo, no antes.</p>
+      <h4>Emiliano Chávez</h4>
+      <div class="cred">Ingeniero mecánico · Lic. en Creación de Empresas · MEDE IPADE</div>
+      <p>Su primera pasión fue la ciencia: <b>medalla de bronce en la Olimpiada Internacional de Ingeniería y Energía</b> y seleccionado para <b>AEXA</b>, el programa de formación con la NASA. Pero descubrió que lo suyo eran los negocios.</p>
+      <p>Desde muy joven empezó a construir modelos que no solo generan dinero, sino impacto: desde <b>microfinancieras sociales</b> hasta <b>Siniestra Pizzería</b> — la prueba de que ser disruptivo en un mercado tradicional te puede llevar hasta <b>Shark Tank México</b>. Uno de los <b>20 seleccionados</b> para cursar el MEDE del IPADE por el programa Jóvenes Construyendo el Futuro.</p>
+      <p class="cierre-bio">Conecta <b>lo técnico con lo estratégico y lo creativo</b> — las tres cosas que casi nunca viven en la misma cabeza.</p>
     </div>
     <div class="persona rev">
       <figure><img src="assets/foto-rafa.jpg" alt="Rafael" loading="lazy"></figure>
@@ -470,7 +483,7 @@ body.js .rev.on{opacity:1;transform:none}
     </div>
     <div class="intro-nota">
       <span class="pulso"></span>
-      <div><b>Estamos armando los primeros 10 casos documentados de Inercia.</b> Por eso hoy entras a precio de introducción, congelado 12 meses desde la firma. A cambio, documentamos tu caso y podemos referirte como cliente.</div>
+      <div><b>Agenda limitada:</b> tomamos <b>4 sesiones nuevas al mes</b> porque cada una es medio día presencial con el dueño. Los precios de este año se mantienen hasta el <b>cierre de 2026</b> y se congelan 12 meses desde la firma.</div>
     </div>
     <div class="escalera">
       <b>¿Y después?</b> De la sesión sale una hoja de ruta con prioridades. Si tiene sentido seguir, se sube un escalón — diagnóstico a fondo, rediseño del modelo, producción de contenido o acompañamiento continuo — y <b>cada peso pagado se acredita al siguiente escalón.</b> Nadie compra a ciegas, y eso se define contigo, con la ruta en la mano.
@@ -507,7 +520,8 @@ body.js .rev.on{opacity:1;transform:none}
       Escríbeme por WhatsApp
     </a>
   </div>
-  <div class="firma">la inercia somos nosotros</div>
+  <img class="logo-cierre" src="assets/logo-garabato.png" alt="Inercia · del garabato a la línea" loading="lazy">
+  <div class="firma">del garabato a la línea · la inercia somos nosotros</div>
 </div></div></div>
 <footer><div class="wrap">
   <span>INERCIA<b>.</b> del garabato a la línea</span>
