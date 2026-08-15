@@ -14,17 +14,26 @@
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700;800;900&family=Hanken+Grotesk:ital,wght@0,300;0,400;0,600;1,300&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<!-- Las tipografías NO bloquean el dibujado: la página se ve de inmediato
+     con las fuentes del sistema y las bonitas entran cuando lleguen. -->
+<link rel="stylesheet" media="print" onload="this.media='all';this.onload=null"
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700;800;900&family=Hanken+Grotesk:ital,wght@0,300;0,400;0,600;1,300&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap">
+<noscript><link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700;800;900&family=Hanken+Grotesk:ital,wght@0,300;0,400;0,600;1,300&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap"></noscript>
 <style>
 :root{
   --papel:#f2efe4;--papel-alto:#faf8ef;--tinta:#14100c;--tinta-media:#48453d;--tinta-suave:#8a867a;
   --rojo:#ff4328;--naranja:#e8842c;--ocre:#b5541f;--linea:#d9d4c4;
   --cuarto:#1c140e;--cuarto-2:#241a12;--brillo:#ffb15e;--verde:#1fa855;
-  --disp:"Outfit",sans-serif;--body:"Hanken Grotesk",Helvetica,sans-serif;--mono:"IBM Plex Mono",monospace;
+  --sis:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --disp:"Outfit",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  --body:"Hanken Grotesk",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 ::selection{background:var(--rojo);color:#fff}
 html{scroll-behavior:smooth}
+html{background:#1c140e}
 body{font-family:var(--body);background:var(--papel);color:var(--tinta);line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 .papel-bg{background-image:radial-gradient(rgba(13,12,10,.028) 1px,transparent 1px);background-size:22px 22px}
 .wrap{max-width:1040px;margin:0 auto;padding:0 26px;position:relative}
@@ -331,7 +340,7 @@ footer b{color:var(--naranja)}
       </div>
     </div>
     <div class="hero-vid">
-      <video src="assets/hero-cerebro.mp4" poster="assets/hero-cerebro-poster.jpg" muted playsinline autoplay loop preload="auto" aria-label="Del garabato a la línea"></video>
+      <video src="assets/hero-cerebro.mp4" poster="assets/hero-cerebro-poster.jpg" muted playsinline autoplay loop preload="none" controls aria-label="Del garabato a la línea"></video>
     </div>
   </div>
   <svg id="lineaSagrada" viewBox="0 0 1000 60" preserveAspectRatio="none"></svg>
