@@ -288,21 +288,21 @@ footer b{color:var(--naranja)}
 .wa-flot{position:fixed;right:18px;bottom:18px;z-index:95;display:flex;align-items:center;gap:10px;
   background:var(--verde);color:#fff;text-decoration:none;padding:14px 20px;border-radius:99px;
   font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
-  box-shadow:0 8px 26px rgba(0,0,0,.3);transition:.18s;opacity:0;pointer-events:none;transform:translateY(14px)}
-.wa-flot.ver{opacity:1;pointer-events:auto;transform:none}
+  box-shadow:0 8px 26px rgba(0,0,0,.3);transition:.18s;opacity:1;pointer-events:auto}
 .wa-flot:hover{background:#17924a}
 .wa-flot svg{width:20px;height:20px;fill:currentColor;flex:none}
 @media(max-width:560px){.wa-flot{right:12px;bottom:12px;padding:13px 17px;font-size:10px}}
 
 /* reveals */
-body.js .hero .rev,body.js .hero-txt,body.js .hero-vid{opacity:1!important;transform:none!important}
-body.js .rev{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.8,.2,1)}
-body.js .rev.on{opacity:1;transform:none}
-@media(prefers-reduced-motion:reduce){body.js .rev{opacity:1;transform:none}}
+/* animaciones de entrada: solo si el navegador las soporta y sin ocultar nada */
+@media (prefers-reduced-motion:no-preference){
+  .rev{animation:entra .7s ease both}
+  @keyframes entra{from{opacity:.35;transform:translateY(14px)}to{opacity:1;transform:none}}
+}
+@media(prefers-reduced-motion:reduce){}
 </style>
 </head>
 <body>
-<script>document.body.classList.add('js');</script>
 
 <nav><div class="nav-fila">
   <a class="nav-logo" href="#"><img src="assets/logo-garabato.png" alt="Inercia" width="34" height="30"><span>INERCIA<b>.</b></span></a>
@@ -312,7 +312,7 @@ body.js .rev.on{opacity:1;transform:none}
     <a href="#proyectos">Proyectos</a>
     <a href="#quienes">Quiénes somos</a>
   </div>
-  <a class="nav-cta wa-link" href="#">Agenda una cita</a>
+  <a class="nav-cta wa-link" href="https://wa.me/522383940280?text=Hola%2C%20vi%20la%20p%C3%A1gina%20de%20Inercia%20y%20quiero%20agendar%20mi%20Sesi%C3%B3n%20Inercia.">Agenda una cita</a>
 </div></nav>
 
 <!-- ═══ HERO ═══ -->
@@ -323,7 +323,7 @@ body.js .rev.on{opacity:1;transform:none}
       <h1>Tu negocio ya se mueve.<br>Nosotros quitamos <em>lo que lo frena.</em></h1>
       <p class="hero-sub">Entendemos <b>dónde está el dinero</b> de tu negocio, rediseñamos <b>qué vendes, a quién y a qué precio</b>, y producimos el contenido que hace visible ese valor.</p>
       <div class="btn-fila">
-        <a class="btn btn-wa wa-link" href="#">
+        <a class="btn btn-wa wa-link" href="https://wa.me/522383940280?text=Hola%2C%20vi%20la%20p%C3%A1gina%20de%20Inercia%20y%20quiero%20agendar%20mi%20Sesi%C3%B3n%20Inercia.">
           <svg viewBox="0 0 24 24"><path d="M17.5 14.4c-.3-.2-1.8-.9-2-1-.3-.1-.5-.2-.7.1-.2.3-.7 1-.9 1.2-.2.2-.3.2-.6.1-.3-.2-1.2-.5-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6l.5-.5c.1-.2.2-.3.3-.5 0-.2 0-.4 0-.5 0-.2-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4s1.1 2.8 1.2 3c.2.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.5.3-.7.3-1.4.2-1.5-.1-.2-.3-.2-.6-.4M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2m0 1.7a8.3 8.3 0 0 1 6.6 13.3 8.3 8.3 0 0 1-11.3 2.1l-.4-.2-3 .8.8-2.9-.2-.4A8.3 8.3 0 0 1 12 3.7"/></svg>
           Agenda una cita
         </a>
@@ -479,7 +479,7 @@ body.js .rev.on{opacity:1;transform:none}
       <p><b>Se acredita el 100%.</b> Si después contratas cualquier servicio dentro de los siguientes 30 días, los $3,900 se descuentan completos. Si trabajamos juntos, <b>la sesión te sale gratis</b>. Si no, te quedas con la hoja de ruta.</p>
     </div>
     <div class="btn-fila" style="margin-top:26px">
-      <a class="btn btn-wa wa-link" href="#">
+      <a class="btn btn-wa wa-link" href="https://wa.me/522383940280?text=Hola%2C%20vi%20la%20p%C3%A1gina%20de%20Inercia%20y%20quiero%20agendar%20mi%20Sesi%C3%B3n%20Inercia.">
         <svg viewBox="0 0 24 24"><path d="M17.5 14.4c-.3-.2-1.8-.9-2-1-.3-.1-.5-.2-.7.1-.2.3-.7 1-.9 1.2-.2.2-.3.2-.6.1-.3-.2-1.2-.5-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6l.5-.5c.1-.2.2-.3.3-.5 0-.2 0-.4 0-.5 0-.2-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4s1.1 2.8 1.2 3c.2.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.5.3-.7.3-1.4.2-1.5-.1-.2-.3-.2-.6-.4M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2m0 1.7a8.3 8.3 0 0 1 6.6 13.3 8.3 8.3 0 0 1-11.3 2.1l-.4-.2-3 .8.8-2.9-.2-.4A8.3 8.3 0 0 1 12 3.7"/></svg>
         Agendar mi sesión
       </a>
@@ -519,7 +519,7 @@ body.js .rev.on{opacity:1;transform:none}
   <h2>Unas horas para ver <em>tu negocio completo.</em></h2>
   <p>Un mensaje y cerramos fecha. Si en la sesión no ves algo que no habías visto, te lo digo yo mismo antes de cobrarte el siguiente paso.</p>
   <div class="btn-fila">
-    <a class="btn btn-wa wa-link" href="#">
+    <a class="btn btn-wa wa-link" href="https://wa.me/522383940280?text=Hola%2C%20vi%20la%20p%C3%A1gina%20de%20Inercia%20y%20quiero%20agendar%20mi%20Sesi%C3%B3n%20Inercia.">
       <svg viewBox="0 0 24 24"><path d="M17.5 14.4c-.3-.2-1.8-.9-2-1-.3-.1-.5-.2-.7.1-.2.3-.7 1-.9 1.2-.2.2-.3.2-.6.1-.3-.2-1.2-.5-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6l.5-.5c.1-.2.2-.3.3-.5 0-.2 0-.4 0-.5 0-.2-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4s1.1 2.8 1.2 3c.2.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.5.3-.7.3-1.4.2-1.5-.1-.2-.3-.2-.6-.4M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2m0 1.7a8.3 8.3 0 0 1 6.6 13.3 8.3 8.3 0 0 1-11.3 2.1l-.4-.2-3 .8.8-2.9-.2-.4A8.3 8.3 0 0 1 12 3.7"/></svg>
       Escríbeme por WhatsApp
     </a>
@@ -533,153 +533,36 @@ body.js .rev.on{opacity:1;transform:none}
   <span>Puebla, MX · <b>2026</b></span>
 </div></footer>
 
-<a class="wa-flot wa-link" href="#">
+<a class="wa-flot wa-link" href="https://wa.me/522383940280?text=Hola%2C%20vi%20la%20p%C3%A1gina%20de%20Inercia%20y%20quiero%20agendar%20mi%20Sesi%C3%B3n%20Inercia.">
   <svg viewBox="0 0 24 24"><path d="M17.5 14.4c-.3-.2-1.8-.9-2-1-.3-.1-.5-.2-.7.1-.2.3-.7 1-.9 1.2-.2.2-.3.2-.6.1-.3-.2-1.2-.5-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6l.5-.5c.1-.2.2-.3.3-.5 0-.2 0-.4 0-.5 0-.2-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4s1.1 2.8 1.2 3c.2.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.5.3-.7.3-1.4.2-1.5-.1-.2-.3-.2-.6-.4M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2m0 1.7a8.3 8.3 0 0 1 6.6 13.3 8.3 8.3 0 0 1-11.3 2.1l-.4-.2-3 .8.8-2.9-.2-.4A8.3 8.3 0 0 1 12 3.7"/></svg>
   Agendar
 </a>
 
 <script>
-/* ══════════════════════════════════════════════════════════
-   REGLA DE ORO: el contenido se muestra ANTES que cualquier
-   adorno. Si algo falla, la página se ve igual.
-   ══════════════════════════════════════════════════════════ */
-
-/* ── 1. REVEALS · PRIMERO Y BLINDADO ── */
-(function(){
-  var elementos = document.querySelectorAll('.rev');
-  function mostrarTodo(){
-    for (var i = 0; i < elementos.length; i++) elementos[i].classList.add('on');
-  }
-  try {
-    if (!('IntersectionObserver' in window)) { mostrarTodo(); return; }
-    var io = new IntersectionObserver(function(entradas){
-      for (var i = 0; i < entradas.length; i++){
-        if (entradas[i].isIntersecting){
-          entradas[i].target.classList.add('on');
-          io.unobserve(entradas[i].target);
-        }
-      }
-    }, {threshold: .14});
-    for (var i = 0; i < elementos.length; i++) io.observe(elementos[i]);
-  } catch(e) { mostrarTodo(); }
-
-  /* red de seguridad: pase lo que pase, a los 2.5s todo lo visible se muestra */
-  setTimeout(function(){
-    for (var i = 0; i < elementos.length; i++){
-      var el = elementos[i];
-      if (el.classList.contains('on')) continue;
-      var r = el.getBoundingClientRect();
-      if (r.top < window.innerHeight + 400) el.classList.add('on');
-    }
-  }, 2500);
-
-  /* último recurso: si algo dejó la página vacía, quitar el modo oculto */
-  setTimeout(function(){
-    var visibles = document.querySelectorAll('.rev.on').length;
-    if (visibles === 0) document.body.classList.remove('js');
-  }, 4000);
-})();
-
-/* ── 1b. VIGILANTE ANTI-PANTALLA-BLANCA ── */
-setTimeout(function(){
-  try {
-    var alto = document.body.scrollHeight;
-    var texto = (document.body.innerText || '').trim().length;
-    if (alto < 800 || texto < 200) {
-      document.body.classList.remove('js');
-      var t = document.querySelectorAll('.rev');
-      for (var i = 0; i < t.length; i++){
-        t[i].classList.add('on');
-        t[i].style.opacity = '1';
-        t[i].style.transform = 'none';
-      }
-    }
-  } catch(e) {
-    document.body.classList.remove('js');
-  }
-}, 3000);
-
-/* ── 2. WHATSAPP ── */
+/* Todo lo esencial ya funciona sin JavaScript.
+   Esto solo agrega detalles opcionales. */
 (function(){
   try {
-    var WHATSAPP = "522383940280";
-    var para = '', negocio = '';
-    try {
-      var q = new URLSearchParams(location.search);
-      para = (q.get('para') || '').trim().slice(0, 40).replace(/[<>]/g, '');
-      negocio = (q.get('negocio') || '').trim().slice(0, 60).replace(/[<>]/g, '');
-    } catch(e) {}
+    var q = window.location.search || '';
+    var m = q.match(/[?&]para=([^&]*)/);
+    if (!m) return;
+    var para = decodeURIComponent(m[1]).replace(/\+/g, ' ').replace(/[<>]/g, '').slice(0, 40);
+    if (!para) return;
 
-    if (para) {
-      var saludo = document.getElementById('saludo');
-      if (saludo) saludo.textContent = para + ', esto es para ti' + (negocio ? ' y para ' + negocio : '') + '.';
-    }
-    var msg = para
-      ? 'Hola, soy ' + para + '. Vi la página de Inercia y quiero agendar mi Sesión Inercia.'
-      : 'Hola, vi la página de Inercia y quiero agendar mi Sesión Inercia.';
-    var url = 'https://wa.me/' + WHATSAPP + '?text=' + encodeURIComponent(msg);
-    var enlaces = document.querySelectorAll('.wa-link');
-    for (var i = 0; i < enlaces.length; i++) enlaces[i].href = url;
+    var saludo = document.getElementById('saludo');
+    if (saludo) saludo.textContent = para + ', esto es para ti.';
+
+    var msg = 'Hola, soy ' + para + '. Vi la página de Inercia y quiero agendar mi Sesión Inercia.';
+    var url = 'https://wa.me/522383940280?text=' + encodeURIComponent(msg);
+    var a = document.getElementsByClassName('wa-link');
+    for (var i = 0; i < a.length; i++) a[i].href = url;
   } catch(e) {}
 })();
 
-/* ── 3. LA LÍNEA (adorno · si falla no pasa nada) ── */
-(function(){
-  try {
-    var svg = document.getElementById('lineaSagrada');
-    if (!svg) return;
-    var NS = 'http://www.w3.org/2000/svg';
-    var defs = document.createElementNS(NS, 'defs');
-    defs.innerHTML = '<linearGradient id="gl" gradientUnits="userSpaceOnUse" x1="10" y1="30" x2="990" y2="30"><stop offset="0" stop-color="#ff4328"/><stop offset="1" stop-color="#ffb15e"/></linearGradient>';
-    svg.appendChild(defs);
-
-    var marcas = [];
-    var g = document.createElementNS(NS, 'g');
-    svg.appendChild(g);
-    for (var i = 1; i < 14; i++){
-      var tx = 10 + 980 * (i / 14);
-      var l = document.createElementNS(NS, 'line');
-      l.setAttribute('x1', tx); l.setAttribute('x2', tx);
-      l.setAttribute('y1', 22); l.setAttribute('y2', 38);
-      l.setAttribute('stroke', 'rgba(255,177,94,.5)');
-      l.setAttribute('stroke-width', '2');
-      l.setAttribute('vector-effect', 'non-scaling-stroke');
-      l.style.opacity = '0';
-      l.style.transition = 'opacity .5s ease ' + (1.1 + i * 0.045) + 's';
-      g.appendChild(l);
-      marcas.push(l);
-    }
-
-    var ln = document.createElementNS(NS, 'line');
-    ln.setAttribute('x1', '10'); ln.setAttribute('x2', '990');
-    ln.setAttribute('y1', '30'); ln.setAttribute('y2', '30');
-    ln.setAttribute('stroke', 'url(#gl)');
-    ln.setAttribute('stroke-width', '5');
-    ln.setAttribute('stroke-linecap', 'round');
-    ln.setAttribute('vector-effect', 'non-scaling-stroke');
-    ln.setAttribute('pathLength', '1');
-    ln.setAttribute('stroke-dasharray', '1');
-    ln.setAttribute('stroke-dashoffset', '1');
-    ln.style.transition = 'stroke-dashoffset 1.5s cubic-bezier(.3,.8,.3,1) .25s';
-    svg.appendChild(ln);
-
-    setTimeout(function(){
-      ln.setAttribute('stroke-dashoffset', '0');
-      for (var k = 0; k < marcas.length; k++) marcas[k].style.opacity = '1';
-    }, 250);
-  } catch(e) {}
-})();
-
-/* ── 4. BOTÓN FLOTANTE (adorno) ── */
 (function(){
   try {
     var flot = document.querySelector('.wa-flot');
-    var hero = document.querySelector('.hero');
-    if (!flot || !hero || !('IntersectionObserver' in window)) return;
-    new IntersectionObserver(function(e){
-      if (e[0].isIntersecting) flot.classList.remove('ver');
-      else flot.classList.add('ver');
-    }, {threshold: .1}).observe(hero);
+    if (flot) flot.className += ' ver';
   } catch(e) {}
 })();
 </script>
