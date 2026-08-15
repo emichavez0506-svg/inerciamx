@@ -67,12 +67,19 @@ nav{position:sticky;top:0;z-index:90;background:rgba(28,20,14,.97);-webkit-backd
 .nav-links a{font-family:var(--mono);font-size:9.5px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;white-space:nowrap;
   color:rgba(242,239,228,.6);text-decoration:none;padding:7px 11px;border-radius:99px;border:1px solid transparent;transition:.15s}
 .nav-links a:hover{color:var(--brillo);border-color:rgba(232,132,44,.42)}
-@media(max-width:900px){.nav-links{display:none}}
+@media(max-width:900px){
+  .nav-fila{flex-wrap:wrap;padding:9px 16px;gap:8px}
+  .nav-links{order:3;width:100%;flex:none;justify-content:flex-start;overflow-x:auto;
+    -webkit-overflow-scrolling:touch;padding-bottom:2px;gap:2px;scrollbar-width:none}
+  .nav-links::-webkit-scrollbar{display:none}
+  .nav-links a{font-size:9px;padding:6px 9px;flex:none}
+  .nav-cta{margin-left:auto}
+}
 .nav-logo{display:flex;align-items:center;gap:10px;font-family:var(--disp);font-weight:900;font-size:16px;letter-spacing:-.5px;
   color:var(--papel);text-decoration:none;flex:none}
 .nav-logo img{height:30px;width:auto;display:block;filter:drop-shadow(0 0 7px rgba(255,90,40,.55))}
 .nav-logo span{white-space:nowrap}
-@media(max-width:520px){.nav-logo span{display:none}.nav-logo img{height:26px}}
+@media(max-width:520px){.nav-logo{font-size:14px;gap:7px}.nav-logo img{height:26px}}
 .nav-logo b{color:var(--rojo)}
 .nav-cta{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;white-space:nowrap;
   color:#fff;background:var(--rojo);text-decoration:none;padding:9px 17px;border-radius:4px;transition:.15s;border:2px solid var(--rojo)}
@@ -100,6 +107,7 @@ nav{position:sticky;top:0;z-index:90;background:rgba(28,20,14,.97);-webkit-backd
 .hero-sub{font-size:clamp(15px,1.55vw,17.5px);font-weight:300;color:rgba(242,239,228,.82);margin-top:18px;max-width:560px}
 .hero-sub b{font-weight:600;color:var(--brillo)}
 #lineaSagrada{width:100%;height:40px;overflow:visible;display:block;margin:24px 0 10px;
+  animation:entra .8s ease both .6s;
   filter:drop-shadow(0 0 8px rgba(255,140,60,.55)) drop-shadow(0 0 26px rgba(255,110,40,.26))}
 .hero-leyenda{display:flex;justify-content:space-between;gap:10px;font-family:var(--mono);font-size:8.5px;letter-spacing:.16em;
   text-transform:uppercase;color:rgba(242,239,228,.45)}
@@ -323,10 +331,43 @@ footer b{color:var(--naranja)}
 @media(max-width:560px){.wa-flot{right:12px;bottom:12px;padding:13px 17px;font-size:10px}}
 
 /* reveals */
-/* animaciones de entrada: solo si el navegador las soporta y sin ocultar nada */
+/* ══ ANIMACIONES ══
+   Regla de oro: el contenido está SIEMPRE visible por defecto.
+   La animación solo se AGREGA con la clase .anima — nunca oculta. */
 @media (prefers-reduced-motion:no-preference){
-  .rev{animation:entra .7s ease both}
-  @keyframes entra{from{opacity:.35;transform:translateY(14px)}to{opacity:1;transform:none}}
+  .rev.anima{animation:entra .75s cubic-bezier(.2,.8,.2,1) both}
+  @keyframes entra{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+
+  /* el hero entra escalonado al abrir */
+  .hero-txt .saludo{animation:entra .7s cubic-bezier(.2,.8,.2,1) both .05s}
+  .hero-txt h1{animation:entra .8s cubic-bezier(.2,.8,.2,1) both .15s}
+  .hero-txt .hero-sub{animation:entra .8s cubic-bezier(.2,.8,.2,1) both .3s}
+  .hero-txt .btn-fila{animation:entra .8s cubic-bezier(.2,.8,.2,1) both .45s}
+  .hero-vid{animation:entraDer .9s cubic-bezier(.2,.8,.2,1) both .25s}
+  @keyframes entraDer{from{opacity:0;transform:translateX(28px)}to{opacity:1;transform:none}}
+
+  /* tarjetas en cascada dentro de cada bloque */
+  .anima .sint,.anima .paso,.anima .caso,.anima .fase{animation:entra .6s ease both}
+  .sint-grid .sint:nth-child(2){animation-delay:.08s}
+  .sint-grid .sint:nth-child(3){animation-delay:.16s}
+  .sint-grid .sint:nth-child(4){animation-delay:.24s}
+  .sint-grid .sint:nth-child(5){animation-delay:.32s}
+  .sint-grid .sint:nth-child(6){animation-delay:.4s}
+  .expo a:nth-child(2){animation-delay:.07s}
+  .expo a:nth-child(3){animation-delay:.14s}
+  .expo a:nth-child(4){animation-delay:.21s}
+  .expo a:nth-child(5){animation-delay:.28s}
+  .fases .fase:nth-child(2){animation-delay:.1s}
+  .fases .fase:nth-child(3){animation-delay:.2s}
+  .fases .fase:nth-child(4){animation-delay:.3s}
+  .fases .fase:nth-child(5){animation-delay:.4s}
+
+  /* la respuesta del síntoma se desliza */
+  .anima .sint-resp{animation:entraSuave .6s ease both .25s}
+  @keyframes entraSuave{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+  /* la línea del hero se dibuja */
+  #lineaSagrada line{animation:none}
 }
 @media(prefers-reduced-motion:reduce){}
 </style>
@@ -368,7 +409,7 @@ footer b{color:var(--naranja)}
       </div>
     </div>
     <div class="hero-vid">
-      <video src="assets/hero-cerebro.mp4" poster="assets/hero-cerebro-poster.jpg" muted playsinline loop preload="none" controls aria-label="Del garabato a la línea"></video>
+      <video src="assets/hero-cerebro.mp4" poster="assets/hero-cerebro-poster.jpg" muted playsinline loop autoplay preload="metadata" controls aria-label="Del garabato a la línea"></video>
     </div>
   </div>
   <svg id="lineaSagrada" viewBox="0 0 1000 60" preserveAspectRatio="none"></svg>
@@ -600,6 +641,25 @@ footer b{color:var(--naranja)}
   try {
     var flot = document.querySelector('.wa-flot');
     if (flot) flot.className += ' ver';
+  } catch(e) {}
+})();
+
+/* ── ANIMACIONES al entrar en pantalla ──
+   Solo AGREGA la clase .anima. Si esto falla, todo se ve igual, sin animación. */
+(function(){
+  try {
+    if (!('IntersectionObserver' in window)) return;
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var io = new IntersectionObserver(function(entradas){
+      for (var i = 0; i < entradas.length; i++){
+        if (entradas[i].isIntersecting){
+          entradas[i].target.className += ' anima';
+          io.unobserve(entradas[i].target);
+        }
+      }
+    }, {threshold: .12, rootMargin: '0px 0px -40px 0px'});
+    var els = document.querySelectorAll('.rev, .sint-grid, .expo, .fases, .casos, .duo, .tres');
+    for (var i = 0; i < els.length; i++) io.observe(els[i]);
   } catch(e) {}
 })();
 
