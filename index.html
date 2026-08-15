@@ -38,6 +38,28 @@ body{font-family:var(--body);background:var(--papel);color:var(--tinta);line-hei
 .papel-bg{background-image:radial-gradient(rgba(13,12,10,.028) 1px,transparent 1px);background-size:22px 22px}
 .wrap{max-width:1040px;margin:0 auto;padding:0 26px;position:relative}
 
+/* ══ INTRO ══ */
+#intro{position:fixed;inset:0;z-index:9999;background:#0f0f0f;display:flex;align-items:center;justify-content:center;
+  transition:opacity .8s ease}
+#intro[hidden]{display:none}
+#intro.fuera{opacity:0;pointer-events:none}
+#intro video{width:min(100vw,170vh);aspect-ratio:16/9;object-fit:contain;display:block;background:#0f0f0f;
+  pointer-events:none}
+#intro::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.45;
+  background:repeating-linear-gradient(0deg,transparent 0 3px,rgba(0,0,0,.2) 3px 4px)}
+@media(orientation:portrait){#intro video{width:100vw}}
+#introBtn{position:absolute;left:50%;bottom:12vh;transform:translate(-50%,16px);opacity:0;pointer-events:none;cursor:pointer;
+  font-family:var(--mono);font-size:12px;font-weight:700;letter-spacing:.34em;text-transform:uppercase;
+  color:var(--brillo);background:rgba(15,11,8,.4);border:2.5px solid var(--naranja);padding:15px 40px 15px 46px;
+  transition:opacity .8s ease,transform .8s ease,background .18s,color .18s}
+#introBtn.ver{opacity:1;pointer-events:auto;transform:translate(-50%,0)}
+#introBtn:active,#introBtn:hover{background:var(--rojo);border-color:var(--rojo);color:#fff}
+#introSkip{position:absolute;top:18px;right:20px;background:none;border:none;cursor:pointer;
+  font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;
+  color:rgba(242,239,228,.45);padding:10px}
+@media(max-width:640px){#introBtn{bottom:14vh;padding:14px 32px;font-size:11px}}
+body.intro-on{overflow:hidden}
+
 /* ══ NAV ══ */
 nav{position:sticky;top:0;z-index:90;background:rgba(28,20,14,.97);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-bottom:2px solid var(--naranja)}
 .nav-fila{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:11px 26px;max-width:1040px;margin:0 auto}
@@ -313,6 +335,14 @@ footer b{color:var(--naranja)}
 </head>
 <body>
 
+<!-- ═══ INTRO · se pinta encima; si algo falla, la página ya está debajo ═══ -->
+<div id="intro" hidden>
+  <video id="introVid" src="assets/hero-cerebro.mp4" poster="assets/hero-cerebro-poster.jpg"
+         muted playsinline preload="auto"></video>
+  <button id="introBtn" type="button">Iniciar</button>
+  <button id="introSkip" type="button">saltar ›</button>
+</div>
+
 <nav><div class="nav-fila">
   <a class="nav-logo" href="#"><img src="assets/logo-garabato.png" alt="Inercia" width="34" height="30"><span>INERCIA<b>.</b></span></a>
   <div class="nav-links">
@@ -340,7 +370,7 @@ footer b{color:var(--naranja)}
       </div>
     </div>
     <div class="hero-vid">
-      <video src="assets/hero-cerebro.mp4" poster="assets/hero-cerebro-poster.jpg" muted playsinline autoplay loop preload="none" controls aria-label="Del garabato a la línea"></video>
+      <video src="assets/hero-cerebro.mp4" poster="assets/hero-cerebro-poster.jpg" muted playsinline loop preload="none" controls aria-label="Del garabato a la línea"></video>
     </div>
   </div>
   <svg id="lineaSagrada" viewBox="0 0 1000 60" preserveAspectRatio="none"></svg>
@@ -573,6 +603,55 @@ footer b{color:var(--naranja)}
     var flot = document.querySelector('.wa-flot');
     if (flot) flot.className += ' ver';
   } catch(e) {}
+})();
+
+/* ── INTRO ──
+   Se activa SOLO si todo está en orden. Cualquier duda: no se muestra
+   y el visitante ve la página directo. Nunca puede dejar nada en blanco. */
+(function(){
+  try {
+    var intro = document.getElementById('intro');
+    var vid   = document.getElementById('introVid');
+    var btn   = document.getElementById('introBtn');
+    var skip  = document.getElementById('introSkip');
+    if (!intro || !vid || !btn) return;
+
+    var fuera = false;
+    function salir(){
+      if (fuera) return; fuera = true;
+      intro.className = 'fuera';
+      document.body.className = document.body.className.replace('intro-on','');
+      try { vid.pause(); } catch(e) {}
+      setTimeout(function(){ if (intro.parentNode) intro.parentNode.removeChild(intro); }, 850);
+    }
+
+    /* SEGURO DE VIDA: pase lo que pase, a los 9 segundos el intro se va */
+    setTimeout(salir, 9000);
+
+    intro.hidden = false;
+    document.body.className += ' intro-on';
+
+    function mostrarBoton(){ btn.className = 'ver'; }
+    /* el botón aparece pronto: 2.5s o cuando la línea sale del cerebro */
+    setTimeout(mostrarBoton, 2500);
+    vid.addEventListener('timeupdate', function(){ if (vid.currentTime >= 5.5) mostrarBoton(); });
+    vid.addEventListener('ended', mostrarBoton);
+    vid.addEventListener('error', mostrarBoton);   /* si no carga, se queda el poster y el botón */
+
+    btn.addEventListener('click', salir);
+    if (skip) skip.addEventListener('click', salir);
+    intro.addEventListener('click', function(e){ if (e.target === intro) salir(); });
+
+    var p = vid.play();
+    if (p && p.catch) p.catch(function(){ mostrarBoton(); });
+  } catch(e) {
+    /* si algo truena, el intro simplemente no existe */
+    try {
+      var i = document.getElementById('intro');
+      if (i && i.parentNode) i.parentNode.removeChild(i);
+      document.body.className = document.body.className.replace('intro-on','');
+    } catch(e2) {}
+  }
 })();
 </script>
 </body>
